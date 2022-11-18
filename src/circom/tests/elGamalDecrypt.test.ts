@@ -8,7 +8,7 @@ describe('Elgamal decryption circuit', ()=>{
   let elGamal: ElGamal;
 
   beforeAll(async ()=>{
-    decryptCircuit = await compileAndLoadCircuit('ElGamalDecrypt.circom');
+    decryptCircuit = await compileAndLoadCircuit('tests/ElGamalDecryptMain.circom');
     elGamal = await ElGamal.build();
   });
 
@@ -26,8 +26,8 @@ describe('Elgamal decryption circuit', ()=>{
     };
 
     const witness = await executeCircuit(decryptCircuit, circuitInputs);
-    const outX = getSignalByName(decryptCircuit, witness, 'main.out[0]'); 
-    const outY = getSignalByName(decryptCircuit, witness, 'main.out[1]'); 
+    const outX = getSignalByName(decryptCircuit, witness, 'main.outX'); 
+    const outY = getSignalByName(decryptCircuit, witness, 'main.outY'); 
 
     expect([outX, outY]).toEqual(elGamal.pointToBI(plaintext));
   });

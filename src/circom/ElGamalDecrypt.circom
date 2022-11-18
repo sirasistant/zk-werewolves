@@ -1,3 +1,4 @@
+pragma circom 2.0.0;
 include "../../node_modules/circomlib/circuits/escalarmulany.circom";
 include "../../node_modules/circomlib/circuits/babyjub.circom";
 include "../../node_modules/circomlib/circuits/bitify.circom";
@@ -15,7 +16,9 @@ template ElGamalDecrypt() {
     signal input c1[2];
     signal input c2[2];
     signal input privKey;
-    signal output out[2];
+    signal output outX;
+    signal output outY;
+
 
     // Convert the private key to bits
     component privKeyBits = Num2Bits(253);
@@ -40,7 +43,6 @@ template ElGamalDecrypt() {
     decryptedPoint.x2 <== c2[0];
     decryptedPoint.y2 <== c2[1];
 
-    out <== [decryptedPoint.xout, decryptedPoint.yout];
+    outX <== decryptedPoint.xout;
+    outY <== decryptedPoint.yout;
 }
-
-component main {public [c1,c2]} = ElGamalDecrypt();
