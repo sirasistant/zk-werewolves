@@ -1,5 +1,6 @@
 pragma circom 2.0.0;
 
+include "../../node_modules/circomlib/circuits/comparators.circom";
 include "./ElGamalDecrypt.circom";
 include "./QuinSelector.circom";
 
@@ -28,6 +29,14 @@ template VerifyRole(numberOfPlayers) {
         for (var selectorIndex = 0; selectorIndex < 4; selectorIndex++) {
             selectors[selectorIndex].in[playerIndex] <== encryptedRoles[playerIndex][selectorIndex];
         }
+    }
+
+    component isZeroCheckers[4];
+
+    for (var selectorIndex = 0; selectorIndex < 4; selectorIndex++) {
+        isZeroCheckers[selectorIndex] = IsZero();
+        isZeroCheckers[selectorIndex].in <== selectors[selectorIndex].out;
+        isZeroCheckers[selectorIndex].out === 0;
     }
 
     decrypter.c1[0] <== selectors[0].out;
