@@ -1,6 +1,7 @@
 pragma circom 2.0.0;
 
 include "../../node_modules/circomlib/circuits/comparators.circom";
+include "../../node_modules/circomlib/circuits/poseidon.circom";
 include "./ElGamalDecrypt.circom";
 include "./QuinSelector.circom";
 
@@ -15,6 +16,7 @@ template VerifyRole(numberOfPlayers) {
 
     signal output roleX;
     signal output roleY;
+    signal output nullifier;
 
     component decrypter = ElGamalDecrypt();
 
@@ -48,8 +50,12 @@ template VerifyRole(numberOfPlayers) {
 
     publicIdentity * 0 === 0;
 
+    component privKeyHasher = Poseidon(1);
+    privKeyHasher.inputs[0] <== privKey;
+
     roleX <== decrypter.outX;
     roleY <== decrypter.outY;
+    nullifier <== privKeyHasher.out;
 }
 
 component main {public [encryptedRoles, publicIdentity]} = VerifyRole(16);

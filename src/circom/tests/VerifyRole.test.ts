@@ -43,7 +43,9 @@ describe('Verify role circuit', ()=>{
       const witness = await executeCircuit(circuit, circuitInputs);
       const roleX = getSignalByName(circuit, witness, 'main.roleX'); 
       const roleY = getSignalByName(circuit, witness, 'main.roleY'); 
+
       expect([roleX, roleY]).toEqual(elGamal.pointToBI(roles[i]));
+      expect(getSignalByName(circuit, witness, 'main.nullifier')).toBeDefined(); 
     }
   });
 
