@@ -18,8 +18,6 @@ export default class Shuffle {
 
   private peersShuffleKeys: PubKey[];
 
-  private tokens?: Tokens;
-
   constructor(elGamal: ElGamal, totalPlayers: number, localPosition: number) {
     this.elGamal = elGamal;
     const privKey = this.elGamal.genPrivKey();
@@ -33,19 +31,8 @@ export default class Shuffle {
     this.peersShuffleKeys[this.localPosition] = this.shuffleKey.publicKey;
   }
 
-  prepare(howManyCards: number) {
-    this.tokens = Array(howManyCards).fill(null).map(() => this.elGamal.genPubKey(this.elGamal.genPrivKey()));
-  }
-
-  getTokens() {
-    if (!this.tokens) {
-      throw new Error('No tokens set');
-    } 
-    return this.tokens;
-  }
-
-  setRemoteTokens(tokens: Tokens) {
-    this.tokens = tokens;
+  prepare(howManyCards: number): Tokens {
+    return Array(howManyCards).fill(null).map(() => this.elGamal.genPubKey(this.elGamal.genPrivKey()));
   }
 
   getShuffleKey() {

@@ -13,9 +13,8 @@ describe('Shuffle utilities', ()=>{
   it('should serialize and deserialize cyphers', async ()=>{
     const elGamal = await ElGamal.build();
     const shuffler = new Shuffle(elGamal, 1, 0);
-    shuffler.prepare(2);
 
-    const cyphers = shuffler.encryptCardsForShuffle(shuffler.getTokens());
+    const cyphers = shuffler.encryptCardsForShuffle(shuffler.prepare(2));
 
     expect(shuffler.deserializeCyphers(shuffler.serializeCyphers(cyphers))).toEqual(cyphers);
   });
@@ -23,9 +22,7 @@ describe('Shuffle utilities', ()=>{
   it('one player two cards shuffle', async ()=>{
     const elGamal = await ElGamal.build();
     const shuffler = new Shuffle(elGamal, 1, 0);
-    shuffler.prepare(2);
-
-    const tokens = shuffler.getTokens();
+    const tokens = shuffler.prepare(2);
 
     let cyphers  = shuffler.shuffle(shuffler.encryptCardsForShuffle(tokens));
 
@@ -49,11 +46,7 @@ describe('Shuffle utilities', ()=>{
 
     // First player generates tokens and shares with everyone
     const firstPlayerData = players[0];
-    firstPlayerData.shuffler.prepare(CARDS);
-
-    // everyone sets the tokens
-    const tokens = firstPlayerData.shuffler.getTokens();
-    players.forEach(player => player.shuffler.setRemoteTokens(tokens));
+    const tokens = firstPlayerData.shuffler.prepare(CARDS);
 
     // everybody shares shuffle keys
     const keys = players.map(player=>player.shuffler.getShuffleKey());
