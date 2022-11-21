@@ -3,7 +3,7 @@ import * as ff from 'ffjavascript';
 import { buildBabyjub, buildEddsa, buildPoseidon }  from 'circomlibjs';
 import crypto from 'crypto-browserify';
 
-export type BabyJubPoint = Uint8Array[];
+export type BabyJubPoint = [Uint8Array, Uint8Array];
 export type PrivKey = Uint8Array;
 export type PubKey = BabyJubPoint;
 
@@ -130,6 +130,10 @@ export default class ElGamal {
     );
   
     return { c1: d1, c2: d2 };
+  }
+
+  bigIntToElement(integer: BigInt): Uint8Array {
+    return this.F.e(integer);
   }
 
   elementToBI(element: Uint8Array) {

@@ -39,6 +39,7 @@
     "dotenv-expand": "^5.1.0",
     "ffjavascript": "^0.2.56",
     "file-loader": "^6.2.0",
+    "fisher-yates": "^1.0.3",
     "fs-extra": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
