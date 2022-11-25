@@ -3,6 +3,8 @@ import { DefaultTheme } from 'styled-components';
 export interface Theme extends DefaultTheme {
   readonly palette: {
     readonly background: string,
+    readonly modalBackgroundColor: string,
+    readonly modalBorderColor: string,
   };
   readonly button: {
     readonly primary: {
@@ -19,6 +21,8 @@ export interface Theme extends DefaultTheme {
 export const defaultTheme: Theme = {
   palette: { 
     background: '#151510',
+    modalBackgroundColor: 'rgb(50,90,60)',
+    modalBorderColor: 'rgb(100,200,140)',
   },
   button:{
     primary: {

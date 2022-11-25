@@ -1,16 +1,22 @@
 import withTheme from './theme/withTheme';
-import { AppContainer, ConnectWalletButton, ConnectWalletContainer } from './App.styles';
-import WalletSelectionModal from './walletSelectionModal';
+import { AppContainer } from './App.styles';
+import { WagmiConfig, createClient, useAccount } from 'wagmi';
+import { getDefaultProvider } from 'ethers';
+import ConnectWallet from './connectWallet';
+ 
+const client = createClient({
+  autoConnect: true,
+  provider: getDefaultProvider(),
+});
+
 function App() {
+  const { isConnected } = useAccount();
   return (
-    <AppContainer>
-      <ConnectWalletContainer>
-        <ConnectWalletButton>
-          Connect wallet
-        </ConnectWalletButton>
-        <WalletSelectionModal open={false}/>
-      </ConnectWalletContainer>
-    </AppContainer>
+    <WagmiConfig client={client}>
+      <AppContainer>
+        { !isConnected && <ConnectWallet/> }
+      </AppContainer>
+    </WagmiConfig>
   );
 }
 

@@ -1,6 +1,5 @@
 import { darken } from '@mui/material';
 import styled from 'styled-components';
-import { Button } from './components/button';
 import { Theme } from './theme/theme';
 
 export const AppContainer = styled.div`
@@ -28,15 +27,3 @@ export const AppContainer = styled.div`
     ) center center / calc(100vw / 5) calc(100vh / 5);
 `;
 
-export const ConnectWalletButton = styled(Button)`
-  flex-grow: 0;
-  padding: 30px 40px;
-`;
-
-export const ConnectWalletContainer = styled.div`
-  display: flex;
-  min-height: inherit;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
