@@ -149,7 +149,6 @@ module.exports = function (webpackEnv) {
                   'postcss-normalize',
                 ]
               : [
-                  'tailwindcss',
                   'postcss-flexbugs-fixes',
                   [
                     'postcss-preset-env',
@@ -357,6 +356,10 @@ module.exports = function (webpackEnv) {
           // match the requirements. When no loader matches it will fall
           // back to the "file" loader at the end of the loader list.
           oneOf: [
+            {
+              test: /\.ttf$/,
+              type: 'asset/resource',
+            },
             // TODO: Merge this config once `image/avif` is in the mime-db
             // https://github.com/jshttp/mime-db
             {
